@@ -2,6 +2,9 @@ import math
 import matplotlib.pyplot as plt
 import random
 
+# Version 1..0.0
+# This script demonstrates basic Python functionalities including mathematical operations,
+
 
 print("Hello, World!")  # Output: Hello, World!
 def factorial(n):   
