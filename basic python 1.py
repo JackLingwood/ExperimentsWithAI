@@ -3,6 +3,35 @@ import matplotlib.pyplot as plt
 import random
 
 
+print("Hello, World!")  # Output: Hello, World!
+def factorial(n):   
+    """Calculates the factorial of a non-negative integer n."""
+    if n < 0:
+        raise ValueError("Factorial is not defined for negative numbers.")
+    if n == 0 or n == 1:
+        return 1
+    result = 1
+    for i in range(2, n + 1):
+        result *= i
+    return result
+
+print("Factorial of 5 is:", factorial(5))  # Output: 120
+
+def fibonacci(n):
+    ###Returns the nth Fibonacci number.###
+    if n < 0:
+        raise ValueError("Fibonacci is not defined for negative numbers.")
+    elif n == 0:
+        return 0
+    elif n == 1:
+        return 1
+    a, b = 0, 1
+    for _ in range(2, n + 1):
+        a, b = b, a + b
+    return b
+
+print("Fibonacci number at position 10 is:", fibonacci(10))  # Output: 55
+
 def solve_quadratic(a, b, c):
     """Solves ax^2 + bx + c = 0 and returns the real roots as a tuple."""
     discriminant = b**2 - 4*a*c
@@ -18,9 +47,9 @@ def solve_quadratic(a, b, c):
     
 
 roots = solve_quadratic(1, -3, 2)
+
+print("For the equation x^2 - 3x + 2 = 0, the roots are:")
 print(roots)  # Output: (2.0, 1.0)
-
-
 
 
 def fourier_series(f, n_terms, x, period=2*math.pi):
@@ -62,7 +91,7 @@ print(approx)
 
 
 def plot_random_numbers():
-    """Generates and plots 100 random numbers on a graph."""
+    # Generates and plots 100 random numbers on a graph.
     data = [random.random() for _ in range(100)]
     plt.figure(figsize=(10, 4))
     plt.plot(data, marker='o', linestyle='-', color='r')
