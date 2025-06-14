@@ -10,6 +10,13 @@ from nltk.stem import PorterStemmer
 from nltk.stem import SnowballStemmer
 import pandas as pd
 import matplotlib.pyplot as plt
+
+import nltk
+nltk.download('wordnet')
+from nltk.stem import WordNetLemmatizer
+
+
+
 # nltk.download('punkt') # Uncomment if you need to download the punkt tokenizer
 # nltk.download('averaged_perceptron_tagger') # Uncomment if you need to download the POS tagger
 # nltk.download('wordnet') # Uncomment if you need to download the WordNet lemmatizer
@@ -27,17 +34,17 @@ import matplotlib.pyplot as plt
 
 ps = PorterStemmer() # Needs to be initialized
 ss = SnowballStemmer('english') # Needs to be initialized
-
+lemmatizer = WordNetLemmatizer()
 
 
 def ApplyTwoStemmers(tokens):
     data = {
-        'Name': ['Word', 'Porter Stemmer', 'Snowball Stemmer'],
+        'Name': ['Word', 'Porter Stemmer', 'Snowball Stemmer','WordNet Lemmatizer'],
         'Score': []
     }
     for t in tokens:
-        print(f"{t:15} : {ps.stem(t):15} : {ss.stem(t):15}")
-        data['Score'].append([t, ps.stem(t), ss.stem(t)])
+        print(f"{t:15} : {ps.stem(t):15} : {ss.stem(t):15} : {lemmatizer.lemmatize(t):15}")
+        data['Score'].append([t, ps.stem(t), ss.stem(t), lemmatizer.lemmatize(t)])
     return data
 
 
@@ -50,10 +57,10 @@ def ShowSubPlots(data):
 
 def GenerateReadmeMDTableMarkdown(data):
     lines = []
-    lines.append("| Word | Porter Stemmer | Snowball Stemmer |")
-    lines.append("|------|----------------|-------------------|")
+    lines.append("| Word | Porter Stemmer | Snowball Stemmer | WordNet Lemmatizer |")
+    lines.append("|------|----------------|-------------------|-------------------|")
     for row in data['Score']:
-        lines.append(f"| {row[0]} | {row[1]} | {row[2]} |")
+        lines.append(f"| {row[0]} | {row[1]} | {row[2]} | {row[3]} |")
     return "\n".join(lines)
 
 
@@ -91,25 +98,7 @@ def DemoGraphObjectsTable(df2):
 
 
 
-# import plotly.graph_objects as go
 
-# # Create a large DataFrame
-# df = pd.DataFrame({
-#     "Name": [f"Name {i}" for i in range(100)],
-#     "Score": [i for i in range(100)]
-# })
-
-# # Create a scrollable table
-# fig = go.Figure(data=[go.Table(
-#     header=dict(values=list(df.columns)),
-#     cells=dict(values=[df[col] for col in df.columns])
-# )])
-
-# fig.update_layout(
-#     height=600,  # Control vertical size
-# )
-
-# fig.show()
 
 
 
@@ -146,11 +135,11 @@ words = [
     'likes','better','worse'
 ]
 
-print("Stemming words using Porter Stemmer:")
-print ("="*50)
+print("Stemming words using Porter Stemmer, Snowball Stemmer and WordNet Lemmatizer:")
+print ("="*70)
 
 # print Heading
-print(f"{'Word':15} : {'Stemmed Word':15} : {'Snowball':15}")
+print(f"{'Word':15} : {'Stemmed Word':15} : {'Snowball':15} : {'WordNetLemmatizer':15}")
 
 
 #from nltk.tokenize import word_tokenize
@@ -173,11 +162,6 @@ print(GenerateReadmeMDTableMarkdown(data))
 # Works more intelligently than stemming
 # # Keeps meaning but leaves you with MUCH larger dataset
 # # Reduces words to their base form
-# import nltk
-# nltk.download('wordnet')
-# from nltk.stem import WordNetLemmatizer
-
-# lemmatizer = WordNetLemmatizer()
 
 # for t in connect_tokens:
 #     print(t,": ",lemmatizer.lemmatize(t))
