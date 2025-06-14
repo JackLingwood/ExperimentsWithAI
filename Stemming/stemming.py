@@ -39,12 +39,18 @@ lemmatizer = WordNetLemmatizer()
 
 def ApplyTwoStemmers(tokens):
     data = {
-        'Name': ['Word', 'Porter Stemmer', 'Snowball Stemmer','WordNet Lemmatizer'],
+        'Name': ['Word', 'Porter Stemmer', 'Snowball Stemmer','WordNet Lemmatizer',"Noun","Verb","Adjective","Adverb","Adjective Satellite"],
         'Score': []
     }
     for t in tokens:
-        print(f"{t:15} : {ps.stem(t):15} : {ss.stem(t):15} : {lemmatizer.lemmatize(t):15}")
-        data['Score'].append([t, ps.stem(t), ss.stem(t), lemmatizer.lemmatize(t)])
+        basic = lemmatizer.lemmatize(t)
+        verb = lemmatizer.lemmatize(t,pos="v")
+        noun = lemmatizer.lemmatize(t,pos="n")
+        adjective = lemmatizer.lemmatize(t,pos="a")
+        adverb = lemmatizer.lemmatize(t,pos="r")
+        adjectiveSatellite = lemmatizer.lemmatize(t,pos="s")
+        print(f"{t:15} : {ps.stem(t):15} : {ss.stem(t):15} : {noun:15} : {verb:15} : {adjective:15} : {adverb:15}  : {adjectiveSatellite:15}")
+        data['Score'].append([t, ps.stem(t), ss.stem(t), basic, noun, verb, adjective, adverb, adjectiveSatellite])
     return data
 
 
@@ -57,30 +63,20 @@ def ShowSubPlots(data):
 
 def GenerateReadmeMDTableMarkdown(data):
     lines = []
-    lines.append("| Word | Porter Stemmer | Snowball Stemmer | WordNet Lemmatizer |")
-    lines.append("|------|----------------|-------------------|-------------------|")
+    lines.append("| Word | Porter Stemmer | Snowball Stemmer | WordNet Lemmatizer | Noun             | Verb             | Adjective           | Adverb            | Adjective Satellite |")
+    lines.append("|------|----------------|-------------------|-------------------| -----------------|------------------|---------------------|-------------------|---------------------|") 
     for row in data['Score']:
-        lines.append(f"| {row[0]} | {row[1]} | {row[2]} | {row[3]} |")
+        lines.append(f"| {row[0]} | {row[1]} | {row[2]} | {row[3]} | {row[4]} | {row[5]} | {row[6]} | {row[7]} | {row[8]} |")
     return "\n".join(lines)
 
 
 
 
-def DemoGraphObjectsTable(df2):
+def DemoGraphObjectsTable(data):
     # This function demonstrates how to create a table using Plotly's graph_objects
     import plotly.graph_objects as go
 
-    # Create a DataFrame
-    # df = pd.DataFrame({
-    #     "Name": ["Alice", "Bob", "Charlie"],
-    #     "Score": [85, 90, 95]
-    # })
-
-    # df = pd.DataFrame({
-    #     "Name": [f"Name {i}" for i in range(100)],
-    #     "Score": [i for i in range(100)]
-    # })
-    df = pd.DataFrame(df2['Score'], columns=df2['Name'])
+    df = pd.DataFrame(data['Score'], columns=data['Name'])
 
     print(df)
 
@@ -96,29 +92,6 @@ def DemoGraphObjectsTable(df2):
 
     fig.show()
 
-
-
-
-
-
-
-
-
-
-# df = pd.DataFrame(data)
-
-# fig, ax = plt.subplots()
-# ax.axis('off')
-# table = ax.table(cellText=df.values, colLabels=df.columns, loc='center')
-# plt.show()
-
-
-
-# print string with right padding
-#def print_stemmed(tokens):
- #   for t in tokens:
-  #      print(f"{t:15} : {ps.stem(t)}")
-
 words = [
     "connect", "connected", "connecting", "connection", "connections",
     'connectivity','connects',
@@ -132,7 +105,10 @@ words = [
     "study", "studies", "studying", "studied",
     "happy", "happier", "happiest", "happiness",
     "use", "used", "uses", "using", "useful", "useless",
-    'likes','better','worse'
+    'likes','better','worse',
+    "running", "ate", "singing", "wrote", "driving", "flying", "went", "swimming",
+    "spoke", "buying", "geese", "mice", "children", "feet", "teeth", "men", "women",
+    "oxen", "leaves", "data", "better", "worse", "faster", "happier", "bigger"    
 ]
 
 print("Stemming words using Porter Stemmer, Snowball Stemmer and WordNet Lemmatizer:")
@@ -141,33 +117,12 @@ print ("="*70)
 # print Heading
 print(f"{'Word':15} : {'Stemmed Word':15} : {'Snowball':15} : {'WordNetLemmatizer':15}")
 
-
-#from nltk.tokenize import word_tokenize
 data = ApplyTwoStemmers(words)
 print("\nStemming complete.\n")
 print(data)
 
 DemoGraphObjectsTable(data)
+ShowSubPlots(data) # Renders badly because there is too much data for the table to fit nicely
 print(GenerateReadmeMDTableMarkdown(data))
-#ShowSubPlots(data)
-
-
 
 #help(ps.stem) # Check out the help for the stem function
-
-
-# worse: wors --> WARNING: wors is NOT a word
-
-# Lemmatization - stems word to more meaningful base form than stemming
-# Works more intelligently than stemming
-# # Keeps meaning but leaves you with MUCH larger dataset
-# # Reduces words to their base form
-
-# for t in connect_tokens:
-#     print(t,": ",lemmatizer.lemmatize(t))
-
-# for t in learn_tokens:
-#     print(t,": ",lemmatizer.lemmatize(t))
-
-# for t in likes_tokens:
-#     print(t,": ",lemmatizer.lemmatize(t))
