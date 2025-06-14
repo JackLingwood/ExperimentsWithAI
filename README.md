@@ -4,7 +4,7 @@ Using some basic Python libraries to investigate the basics of NLP
 
 Using the Python [NLTK library](https://www.nltk.org/) - Natural Language Toolkit
 
-### Comparison of Stemming using Porter Stemmer, Snowball Stemmer and WordNet Lemmatizer
+### Comparison of Porter Stemmer, Snowball Stemmer and WordNet Lemmatizer
 
 | Word | Porter Stemmer | Snowball Stemmer | WordNet Lemmatizer | Noun             | Verb             | Adjective           | Adverb            | Adjective Satellite |
 |------|----------------|-------------------|-------------------| -----------------|------------------|---------------------|-------------------|---------------------|
