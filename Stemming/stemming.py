@@ -48,6 +48,15 @@ def ShowSubPlots(data):
     table = ax.table(cellText=df.values, colLabels=df.columns, loc='center')
     plt.show()
 
+def GenerateReadmeMDTableMarkdown(data):
+    lines = []
+    lines.append("| Word | Porter Stemmer | Snowball Stemmer |")
+    lines.append("|------|----------------|-------------------|")
+    for row in data['Score']:
+        lines.append(f"| {row[0]} | {row[1]} | {row[2]} |")
+    return "\n".join(lines)
+
+
 
 
 def DemoGraphObjectsTable(df2):
@@ -150,6 +159,7 @@ print("\nStemming complete.\n")
 print(data)
 
 DemoGraphObjectsTable(data)
+print(GenerateReadmeMDTableMarkdown(data))
 #ShowSubPlots(data)
 
 
