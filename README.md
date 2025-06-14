@@ -2,7 +2,9 @@
 Simple project to experiment with various AI Python libraries.
 Using some basic Python libraries to investigate the basics of NLP
 
-### Comparison of Stemming using Porter Stemmer, Snowball Stemmer and basic Lemmatization
+Using the Python [NLTK library](https://www.nltk.org/) - Natural Language Toolkit
+
+### Comparison of Stemming using Porter Stemmer, Snowball Stemmer and WordNet Lemmatizer
 
 | Word | Porter Stemmer | Snowball Stemmer | WordNet Lemmatizer | Noun             | Verb             | Adjective           | Adverb            | Adjective Satellite |
 |------|----------------|-------------------|-------------------| -----------------|------------------|---------------------|-------------------|---------------------|
