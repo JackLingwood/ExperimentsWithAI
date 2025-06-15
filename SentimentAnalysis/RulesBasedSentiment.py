@@ -18,9 +18,10 @@ sentence_2 = "i had a great time at the movie but the parking was terrible"
 sentence_3 = "i had a great time at the movie but the parking wasn't great"
 sentence_4 = "i went to see a movie"
 sentence_5 = "i had the best time of my life the movie it was the best experience of my life"
+sentence_6 = "i wish I could have the time back that I spent watching this movie"
 
 
-sentences = [sentence_1, sentence_2, sentence_3, sentence_4, sentence_5]
+sentences = [sentence_1, sentence_2, sentence_3, sentence_4, sentence_5, sentence_6]
 
 def evaluate_sentiment(sentence):
     sentiment = TextBlob(sentence)
