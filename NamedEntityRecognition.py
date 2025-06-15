@@ -5,6 +5,8 @@ import re
 import os
 
 
+# Testing Git.
+
 def clear_console():
        os.system('cls' if os.name == 'nt' else 'clear')
 
