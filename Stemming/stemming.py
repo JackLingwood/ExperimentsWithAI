@@ -29,13 +29,9 @@ from nltk.stem import WordNetLemmatizer
 # nltk.download('wordnet') # Uncomment if you need to download the WordNet lemmatizer
 # nltk.download('omw-1.4') # Uncomment if you need to download the Open Multilingual WordNet
 
-
-
-
 ps = PorterStemmer() # Needs to be initialized
 ss = SnowballStemmer('english') # Needs to be initialized
 lemmatizer = WordNetLemmatizer()
-
 
 def ApplyTwoStemmers(tokens):
     data = {
@@ -68,9 +64,6 @@ def GenerateReadmeMDTableMarkdown(data):
     for row in data['Score']:
         lines.append(f"| {row[0]} | {row[1]} | {row[2]} | {row[3]} | {row[4]} | {row[5]} | {row[6]} | {row[7]} | {row[8]} |")
     return "\n".join(lines)
-
-
-
 
 def DemoGraphObjectsTable(data):
     # This function demonstrates how to create a table using Plotly's graph_objects
