@@ -145,24 +145,16 @@ tokens_clean = sum(data['lemmatized'], [])
 print ("\nUNIGRAMS")
 
 # unigrams: n=1
-unigrams = (pd.Series \
-            (nltk.ngrams(tokens_clean, 1)) \
-            .value_counts()) 
+unigrams = (pd.Series(nltk.ngrams(tokens_clean, 1)).value_counts()) 
 print(unigrams)
 
 print ("\nBIGRAMS")
 
 # bigrams: n=2
-bigrams = (pd.Series \
-           (nltk.ngrams(tokens_clean, 2)) \
-           .value_counts()) 
+bigrams = (pd.Series(nltk.ngrams(tokens_clean, 2)).value_counts()) 
 print(bigrams)
 
-ngrams_4 = (pd.Series \
-            (nltk.ngrams(tokens_clean, 4)) \
-            .value_counts()) 
+# trigrams: n=3
+print ("\nTRIGRAMS")
+ngrams_4 = (pd.Series(nltk.ngrams(tokens_clean, 3)).value_counts()) 
 print(ngrams_4)
-
-
-
-
