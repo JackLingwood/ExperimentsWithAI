@@ -1,4 +1,3 @@
-
 import sys
 import os
 sys.path.append(os.path.abspath("Shared"))  # Add the parent directory to the system path
@@ -57,8 +56,6 @@ print(sentiment_score_4.sentiment.polarity)
 
 heading("Sentiment Analysis with VADER")
 
-
-
 print(sentence_1)
 print(vader_sentiment.polarity_scores(sentence_1))
 
@@ -84,7 +81,6 @@ def list_transformer_models():
     models = list_models()
     #models = list_models(filter="pipeline_tag:sentiment-analysis,library:transformers")
     #models = list_models(filter="pipeline_tag:sentiment-analysis")
-
     x = 1
 
     for model in models:  # show first 10
