@@ -19,7 +19,7 @@ print("Current working directory:", os.getcwd())
 import config
 heading("ChatGPT API")
 api_key = config.api_key
-heading2("api_key", api_key)
+#heading2("api_key", api_key)
 
 #import openai
 # Function to get a response from ChatGPT
@@ -36,13 +36,14 @@ def getChatGPTResponse(prompt, temperature=0.2, max_tokens=10):
     return chat_completion.choices[0].message.content
 
 
-def getChatGPTResponse(prompt, specialMessages, temperature=0.2, max_tokens=10):
+def getChatGPTResponse(specialMessages, temperature=0.2, max_tokens=10):
     client = OpenAI(api_key=api_key)
-    chat_completion = client.chat.completions.create(    
-    model="gpt-3.5-turbo",
-    max_tokens=max_tokens,
-    temperature=temperature,
-    messages=specialMessages
+    chat_completion = client.chat.completions.create(
+        model="gpt-3.5-turbo",
+        max_tokens=max_tokens,
+        temperature=temperature,
+        messages=specialMessages
+    )
     return chat_completion.choices[0].message.content
 
 
@@ -113,16 +114,20 @@ prompt = "Master Reef Guide Kirsty Whitman didn't need to tell me twice. Peering
 print(prompt)
 
 text_summarizer(prompt)
-exit()
+
 
 def poetic_chatbot(prompt):
+        # This function creates a poetic chatbot that responds to user queries in a poetic manner.
+        # It uses the OpenAI API to generate responses based on a set of predefined messages.
+        # The messages include a system message to set the behavior of the assistant, user messages to guide the assistant's responses, and assistant messages that provide poetic answers.
+        # The temperature and max_tokens parameters can be adjusted to control the creativity and length of the responses.
         messages = [
             {
-                "role": "system",
+                "role": "system", # Overall system message to set the behavior of the assistant # Most important message
                 "content": "You are a poetic chatbot."
             },
             {
-                "role": "user",
+                "role": "user", # Give examples of user messages to guide the assistant's responses
                 "content": "When was Google founded?"
             },
             {
@@ -142,57 +147,34 @@ def poetic_chatbot(prompt):
                 "content": prompt
             }
         ]
-        return getChatGPTResponse(prompt, temperature=0.5, max_tokens=256)
+        return getChatGPTResponse(messages, temperature=0.5, max_tokens=256)
 
 
-
-        temperature = 1,
-        max_tokens=256
-    )
-    return response.choices[0].message.content.strip()
-
-print("End of top section")
-
-heading()
-
-
-
+heading("Poetic Chatbot")
 prompt = "When was cheese first made?"
-poetic_chatbot(prompt)
-
+heading2(prompt, poetic_chatbot(prompt))
 prompt = "What is the next course to be uploaded to 365DataScience?"
-poetic_chatbot(prompt)
+heading2(prompt, poetic_chatbot(prompt))
+# Above answer is not up-to-date.
 
-from langchain.document_loaders import WebBaseLoader
-from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain.embeddings import OpenAIEmbeddings
-from langchain.vectorstores import FAISS
-from langchain.memory import ConversationBufferMemory
-from langchain.llms import OpenAI
-from langchain.chains import ConversationalRetrievalChain
-from langchain.chat_models import ChatOpenAI
+# We can use LangChain to create a conversational retrieval chain that can answer questions based on a specific set of documents.
+# LangChain is a framework for building applications with LLMs (Large Language Models) like ChatGPT.
+# It allows us to create chains of operations that can include loading documents, splitting them into smaller
+# chunks, embedding them into a vector store, and then using a conversational retrieval chain to answer questions based on those documents.
 
-url = "https://365datascience.com/upcoming-courses"
+# We can use LangChain to generate a support chatbot.
 
-loader = WebBaseLoader(url)
+# We use LangChain to to add additional up-to-date information to the chatbot.
 
-raw_documents = loader.load()
+# Documents --> Split into Chunks --> Embed into Vector Store --> Conversational Retrieval Chain
+# We can use LangChain to create a conversational retrieval chain that can answer questions based on a specific set of documents.
+# LangChain is a framework for building applications with LLMs (Large Language Models) like ChatGPT.
+# It allows us to create chains of operations that can include loading documents, splitting them into smaller
+# chunks, embedding them into a vector store, and then using a conversational retrieval chain to answer questions based on those documents.
 
-text_splitter = RecursiveCharacterTextSplitter()
-documents = text_splitter.split_documents(raw_documents)
+heading("Conversational Retrieval Chain")
 
-embeddings = OpenAIEmbeddings(openai_api_key = api_key)
 
-vectorstore = FAISS.from_documents(documents, embeddings)
 
-memory = ConversationBufferMemory(memory_key = "chat_history", return_messages=True)
+# We can load data from PDF, text, or web pages using LangChain's document loaders.
 
-qa = ConversationalRetrievalChain.from_llm(ChatOpenAI(openai_api_key=api_key, 
-                                                  model="gpt-3.5-turbo", 
-                                                  temperature=0), 
-                                           vectorstore.as_retriever(), 
-                                           memory=memory)
-
-query = "What is the next course to be uploaded on the 365DataScience platform?"
-
-result = qa({"question": query})
