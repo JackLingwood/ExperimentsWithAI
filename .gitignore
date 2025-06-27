@@ -1,3 +1,12 @@
 Shared/__pycache__/utils.cpython-312.pyc
 LLM/config.py
 LLM/__pycache__/config.cpython-312.pyc
+LLM/XLNET/fine_tuned_model/config.json
+LLM/XLNET/fine_tuned_model/model.safetensors
+LLM/XLNET/test_trainer/checkpoint-39/training_args.bin
+LLM/XLNET/test_trainer/checkpoint-39/trainer_state.json
+LLM/XLNET/test_trainer/checkpoint-39/scheduler.pt
+LLM/XLNET/test_trainer/checkpoint-39/rng_state.pth
+LLM/XLNET/test_trainer/checkpoint-39/optimizer.pt
+LLM/XLNET/test_trainer/checkpoint-39/model.safetensors
+LLM/XLNET/test_trainer/checkpoint-39/config.json

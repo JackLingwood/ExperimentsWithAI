@@ -44,9 +44,7 @@ data_train = pd.read_csv('emotion-labels-train.csv')
 data_test = pd.read_csv('emotion-labels-test.csv')
 data_val = pd.read_csv('emotion-labels-val.csv')
 
-
 print("Data loaded successfully from CSV files.")
-
 
 # data should be saved in a folder called 'emotions' which is saved in the same place as your notebook
 
@@ -130,17 +128,22 @@ heading2("Tokenized Datasets", tokenized_datasets)
 
 heading2("tokenized_datasets['train']['text'][0]", tokenized_datasets['train']['text'][0])
 heading2("tokenized_datasets['train']['input_ids'][0]", tokenized_datasets['train']['input_ids'][0])
-exit()
 
 
-tokenizer.decode(5)
+heading2("tokenizer.decode(5)", tokenizer.decode(5))  # Decoding the token ID 5
 
-print(tokenized_datasets['train']['token_type_ids'][0])
 
-print(tokenized_datasets['train']['attention_mask'][0])
+heading2("tokenized_datasets['train']['token_type_ids'][0]", tokenized_datasets['train']['token_type_ids'][0])
+
+# print(tokenized_datasets['train']['token_type_ids'][0])
+
+heading2("tokenized_datasets['train']['attention_mask'][0]", tokenized_datasets['train']['attention_mask'][0])
+# print(tokenized_datasets['train']['attention_mask'][0])
 
 small_train_dataset = tokenized_datasets["train"].shuffle(seed=42).select(range(100))
 small_eval_dataset = tokenized_datasets["test"].shuffle(seed=42).select(range(100))
+
+heading("Fine-tuning XLNet for Emotion Classification")
 
 model = XLNetForSequenceClassification.from_pretrained('xlnet-base-cased', 
                                                        num_labels=NUM_LABELS, 
@@ -166,16 +169,27 @@ trainer.train()
 
 trainer.evaluate()
 
+heading("Saving the fine-tuned model")
+
 model.save_pretrained("fine_tuned_model")
+
+heading("Testing the fine-tuned model")
 
 fine_tuned_model = XLNetForSequenceClassification.from_pretrained("fine_tuned_model")
 
 clf = pipeline("text-classification", fine_tuned_model, tokenizer=tokenizer)
 
+
 rand_int = random.randint(0, len(val_split))
+heading("Results for a random sample from the validation set")
+
 print(val_split['text_clean'][rand_int])
 answer = clf(val_split['text_clean'][rand_int], top_k=None)
 print(answer)
+
+# Input is crap.
+# Output is crap.
+# Need to find better source for fine-tuning the model.
 
 
 
