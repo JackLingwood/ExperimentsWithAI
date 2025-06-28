@@ -6,3 +6,6 @@ REM conda env remove --name langchain
 python --version
 pip install openai python-dotenv ipykernel jupyterlab notebook
 python -m ipykernel install --user --name langchain_env
+pip install langchain
+pip install langchain-openai
+
