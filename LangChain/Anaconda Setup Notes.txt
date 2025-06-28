@@ -1,0 +1,8 @@
+REM Go to Anaconda prompt
+conda create --name langchain_env python=3.10.10
+conda env list
+conda activate langchain_env
+REM conda env remove --name langchain 
+python --version
+pip install openai python-dotenv ipykernel jupyterlab notebook
+python -m ipykernel install --user --name langchain_env

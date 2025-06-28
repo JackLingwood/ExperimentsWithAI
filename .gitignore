@@ -10,3 +10,5 @@ LLM/XLNET/test_trainer/checkpoint-39/rng_state.pth
 LLM/XLNET/test_trainer/checkpoint-39/optimizer.pt
 LLM/XLNET/test_trainer/checkpoint-39/model.safetensors
 LLM/XLNET/test_trainer/checkpoint-39/config.json
+LangChain/config.py
+LangChain/.env

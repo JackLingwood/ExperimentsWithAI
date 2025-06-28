@@ -23,6 +23,9 @@ def heading2(heading,obj):
     print_green_text(heading.upper())    
     print(obj)
 
+def heading3(heading,obj):
+    print("\033[34m" + heading + "\033[0m", end=' ')
+    print(obj)
 
 def clearConsole():
        import os
