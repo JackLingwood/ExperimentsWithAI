@@ -24,7 +24,9 @@ os.chdir(script_dir)
 print("Current working directory:", os.getcwd())
 
 # Headings
-heading("Langchain 2")
+# Get name of the current file
+name = os.path.basename(__file__)
+heading(f"{name} Human & System Message with LangChain OpenAI Chat")
 api_key = os.environ.get("api_key")
 client = OpenAI(api_key=api_key)
 
