@@ -13,3 +13,4 @@ LLM/XLNET/test_trainer/checkpoint-39/config.json
 LangChain/config.py
 LangChain/.env
 LangChain/__pycache__/config.cpython-312.pyc
+LangChain/LangChainExpressionLanguage/.env
