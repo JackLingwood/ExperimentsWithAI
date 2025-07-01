@@ -1,0 +1,92 @@
+# ------------------------------------------------
+from dotenv import load_dotenv
+import os
+import sys
+
+# Add Shared folder to sys.path
+sys.path.append(os.path.abspath("Shared"))
+
+from utils import heading, heading2, heading3, clearConsole, note
+from openai import OpenAI
+
+# Load environment variables
+load_dotenv()
+
+# Clear console and set working directory
+clearConsole()
+
+script_dir = os.path.dirname(os.path.abspath(__file__))
+os.chdir(script_dir)
+print("Current working directory:", os.getcwd())
+
+# Headings
+name = os.path.basename(__file__)
+heading(f"{name} Text Embedding Using OpenAI")
+# ------------------------------------------------
+
+from langchain_community.document_loaders import Docx2txtLoader
+from langchain_text_splitters.markdown import MarkdownHeaderTextSplitter
+from langchain_text_splitters.character import CharacterTextSplitter
+from langchain_openai.embeddings import OpenAIEmbeddings
+import numpy as np
+
+loader_docx = Docx2txtLoader("Introduction_to_Data_and_Data_Science_2.docx")
+pages = loader_docx.load()
+
+md_splitter = MarkdownHeaderTextSplitter(
+    headers_to_split_on = [("#", "Course Title"), 
+                           ("##", "Lecture Title")]
+)
+
+pages_md_split = md_splitter.split_text(pages[0].page_content)
+
+for i in range(len(pages_md_split)):
+    pages_md_split[i].page_content = ' '.join(pages_md_split[i].page_content.split())
+    
+char_splitter = CharacterTextSplitter(
+    separator = ".",
+    chunk_size = 500,
+    chunk_overlap  = 50
+)
+
+pages_char_split = char_splitter.split_documents(pages_md_split)
+
+heading2("pages_char_split",pages_char_split)
+
+api_key = os.environ.get("api_key")
+embedding = OpenAIEmbeddings(model = "text-embedding-ada-002", api_key=api_key)
+
+heading2("pages_char_split[3].page_content", pages_char_split[3].page_content)
+heading2("pages_char_split[5].page_content", pages_char_split[5].page_content)
+heading2("pages_char_split[18].page_content", pages_char_split[18].page_content)
+
+vector1 = embedding.embed_query(pages_char_split[3].page_content)
+vector2 = embedding.embed_query(pages_char_split[5].page_content)
+vector3 = embedding.embed_query(pages_char_split[18].page_content)
+
+heading2("Vector Embeddings", "Use OpenAI Embeddings to create vector embeddings for the text")
+heading3("Vector 1", vector1)
+heading3("Vector 2", vector2)
+heading3("Vector 3", vector3)
+heading2("Vector Lengths", "Check the lengths of the vectors to ensure they are compatible for comparison")
+heading3("Vector 1 Length", len(vector1))
+heading3("Vector 2 Length", len(vector2))
+heading3("Vector 3 Length", len(vector3))
+
+note("If the vectors are not the same length, then the embeddings are not compatible for comparison.")
+note("If the vectors are the same length, then the embeddings are compatible for comparison.")
+
+heading2("Dot Products", "Use Dot Product to compare vectors")
+heading3("Vector 1 and Vector 2", np.dot(vector1, vector2))
+heading3("Vector 1 and Vector 3", np.dot(vector1, vector3))
+heading3("Vector 2 and Vector 3", np.dot(vector2, vector3))
+
+heading2("Vector Norms", "Use Norm to compare vectors")
+heading3("Vector 1 Norm", np.linalg.norm(vector1))
+heading3("Vector 2 Norm", np.linalg.norm(vector2))
+heading3("Vector 3 Norm", np.linalg.norm(vector3))
+
+heading2("Cosine Similarity", "Use Cosine Similarity to compare vectors")
+heading3("Vector 1 and Vector 2", np.dot(vector1, vector2) / (np.linalg.norm(vector1) * np.linalg.norm(vector2)))
+heading3("Vector 1 and Vector 3", np.dot(vector1, vector3) / (np.linalg.norm(vector1) * np.linalg.norm(vector3)))
+heading3("Vector 2 and Vector 3", np.dot(vector2, vector3) / (np.linalg.norm(vector2) * np.linalg.norm(vector3))) 

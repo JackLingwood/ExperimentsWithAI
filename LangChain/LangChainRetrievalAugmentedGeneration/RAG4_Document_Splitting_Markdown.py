@@ -128,3 +128,6 @@ for p in pages_md_split:
     heading2("Markdown Split Page", "")
     heading2("Page Metadata", p.metadata)
     heading2("Page Content", p.page_content)
+
+# Need to study Token Text Splitters
+# Need to study Recursive Character Text Splitters

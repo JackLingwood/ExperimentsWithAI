@@ -11,6 +11,9 @@ def print_yellow_text(text):
 def print_green_text(text):
     print("\033[32m" + text + "\033[0m")
 
+def note(text):
+    print_yellow_text("\n" + text + "\n")
+
 
 def heading(h):     
       print_red_text("\n" + "="*len(h))
