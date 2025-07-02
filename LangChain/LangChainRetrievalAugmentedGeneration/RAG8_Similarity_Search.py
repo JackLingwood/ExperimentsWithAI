@@ -21,7 +21,7 @@ print("Current working directory:", os.getcwd())
 
 # Headings
 name = os.path.basename(__file__)
-heading(f"{name} Managing Documents in a Chroma Vector Store")
+heading(f"{name} Basic Chroma DB Similarity Search")
 api_key = os.environ.get("api_key")
 # ------------------------------------------------
 
@@ -47,6 +47,8 @@ question = "What programming languages do data scientists use?"
 heading2("Question", question)
 
 # k = 5, get at most 5 documents
+
+note("Doing Chroma's semantic similarity search")
 retrieved_docs = vectorstore.similarity_search(query = question, k = 5)
 
 heading2("Number of retrieved documents", len(retrieved_docs))
