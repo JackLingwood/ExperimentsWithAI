@@ -1,0 +1,78 @@
+# ------------------------------------------------
+from dotenv import load_dotenv
+import os
+import sys
+
+# Add Shared folder to sys.path
+sys.path.append(os.path.abspath("Shared"))
+
+from utils import heading, heading2, heading3, clearConsole, note
+from openai import OpenAI
+
+# Load environment variables
+load_dotenv()
+
+# Clear console and set working directory
+clearConsole()
+
+script_dir = os.path.dirname(os.path.abspath(__file__))
+os.chdir(script_dir)
+print("Current working directory:", os.getcwd())
+
+# Headings
+name = os.path.basename(__file__)
+heading(f"{name} Creating Chroma Vector Store")
+api_key = os.environ.get("api_key")
+# ------------------------------------------------
+
+os.environ["ANONYMIZED_TELEMETRY"] = "FALSE"
+
+from langchain_community.document_loaders import Docx2txtLoader
+from langchain_text_splitters.markdown import MarkdownHeaderTextSplitter
+from langchain_text_splitters.character import CharacterTextSplitter
+from langchain_openai.embeddings import OpenAIEmbeddings
+#from langchain_community.vectorstores import Chroma
+from langchain_chroma import Chroma
+
+loader_docx = Docx2txtLoader("Introduction_to_Data_and_Data_Science_2.docx")
+pages = loader_docx.load()
+
+md_splitter = MarkdownHeaderTextSplitter(
+    headers_to_split_on = [("#", "Course Title"), 
+                           ("##", "Lecture Title")]
+)
+
+pages_md_split = md_splitter.split_text(pages[0].page_content)
+
+for i in range(len(pages_md_split)):
+    pages_md_split[i].page_content = ' '.join(pages_md_split[i].page_content.split())
+    
+char_splitter = CharacterTextSplitter(
+    separator = ".",
+    chunk_size = 500,
+    chunk_overlap  = 50
+)
+
+pages_char_split = char_splitter.split_documents(pages_md_split)
+
+embedding = OpenAIEmbeddings(model='text-embedding-ada-002', api_key=api_key)
+
+heading2("len(pages_char_split)", len(pages_char_split))
+
+
+vectorstore = Chroma.from_documents(documents = pages_char_split, 
+                                    embedding = embedding, 
+                                    persist_directory = "./intro-to-ds-lectures")
+
+heading2("vectorstore", vectorstore)
+
+# print the number of documents in the vectorstore
+note("The vectorstore is a Chroma vector store created from the documents split by the CharacterTextSplitter. It contains the embedded vectors of the documents.")
+heading2("vectorstore._collection.count()", vectorstore._collection.count())
+
+
+
+vectorstore_from_directory = Chroma(persist_directory = "./intro-to-ds-lectures", 
+                                    embedding_function = embedding)
+
+heading2("vectorstore_from_directory", vectorstore_from_directory)

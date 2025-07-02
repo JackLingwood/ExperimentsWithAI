@@ -171,6 +171,8 @@
 
 # pip install pypdf
 # pip install docx2txt
+# pip install chromadb <-- Deprecated, use langchain-chroma instead
+# pip install -U langchain-chroma
 
 
 

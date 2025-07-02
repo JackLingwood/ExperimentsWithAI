@@ -14,3 +14,9 @@ LangChain/config.py
 LangChain/.env
 LangChain/__pycache__/config.cpython-312.pyc
 LangChain/LangChainExpressionLanguage/.env
+LangChain/LangChainRetrievalAugmentedGeneration/intro-to-ds-lectures/63589da1-44c2-4e65-96cd-b2a9d02840b1/link_lists.bin
+.gitignore
+LangChain/LangChainRetrievalAugmentedGeneration/intro-to-ds-lectures/chroma.sqlite3
+LangChain/LangChainRetrievalAugmentedGeneration/intro-to-ds-lectures/63589da1-44c2-4e65-96cd-b2a9d02840b1/data_level0.bin
+LangChain/LangChainRetrievalAugmentedGeneration/intro-to-ds-lectures/63589da1-44c2-4e65-96cd-b2a9d02840b1/header.bin
+LangChain/LangChainRetrievalAugmentedGeneration/intro-to-ds-lectures/63589da1-44c2-4e65-96cd-b2a9d02840b1/length.bin
