@@ -22,6 +22,7 @@ print("Current working directory:", os.getcwd())
 # Headings
 name = os.path.basename(__file__)
 heading(f"{name} Text Embedding Using OpenAI")
+api_key = os.environ.get("api_key")
 # ------------------------------------------------
 
 from langchain_community.document_loaders import Docx2txtLoader

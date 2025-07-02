@@ -24,9 +24,10 @@ name = os.path.basename(__file__)
 heading(f"{name} Vector Store Backed Retriever with MMR")
 api_key = os.environ.get("api_key")
 # ---------------------------------------------------------------------------------------------
-from langchain_openai.embeddings import OpenAIEmbeddings
-#from langchain_community.vectorstores import Chroma
 from langchain_chroma import Chroma
+from langchain_openai.embeddings import OpenAIEmbeddings
+
+
 from langchain_core.documents import Document
 
 embedding = OpenAIEmbeddings(api_key=api_key)
