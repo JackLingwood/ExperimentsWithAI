@@ -52,7 +52,7 @@ retrieved_docs = vectorstore.max_marginal_relevance_search(
     filter = {"Lecture Title": "Programming Languages & Software Employed in Data Science - All the Tools You Need"}
 )
 
-# lambda_mult = 0 means that the search will focus on ducoument diversity
+# lambda_mult = closer to 0 means that the search will focus on document diversity
 # lambda_mult = 1 means that the search will be more focused on the most relevant documents, while higher values will increase diversity in the results.
 
 
