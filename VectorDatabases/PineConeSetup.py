@@ -171,6 +171,6 @@ for hit in reranked_results['result']['hits']:
 
 
 note("Delete the index")
-pc.delete_index(index_name)
+#pc.delete_index(index_name)
 
 note("Done")
