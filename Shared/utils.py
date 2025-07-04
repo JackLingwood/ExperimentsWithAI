@@ -21,7 +21,7 @@ def heading(h):
       print_red_text("="*len(h) + "\n")     
 
 
-def heading2(heading,obj):
+def heading2(heading,obj=""):
     print()
     print_green_text(heading.upper())    
     print(obj)
