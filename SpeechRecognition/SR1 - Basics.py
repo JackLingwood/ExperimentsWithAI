@@ -216,7 +216,7 @@ directory_path = os.path.join(os.getcwd(), "Recordings")
 def transcribe_directory_whisper(directory_path):
     transcriptions = []
     for file_name in os.listdir(directory_path):
-        name("Processing file", file_name)
+        heading3("Processing file ", file_name)
         if file_name.endswith(".wav"):
             files_path = os.path.join(directory_path, file_name)
             # Transcribe the audio file
@@ -231,13 +231,32 @@ transcriptions = transcribe_directory_whisper(directory_path)
 
 output_file = "transcriptions.csv"
 
+note(f"Saving transcriptions to {output_file}")
+
 with open(output_file, mode='w', newline='') as file:
     writer = csv.writer(file)
     writer.writerow(["Track Number", "File Name", "Transcription"])  # Write the header
     for number, transcription in enumerate(transcriptions, start=1):
+        print(f"Transcription {number}: {transcription['file_name']} - {transcription['transcription']}")
         writer.writerow([number, transcription['file_name'], transcription['transcription']])
 
-text = """Thank you for taking the time to watch our course on speech recognition!
-This concludes the final lesson of this section. See you soon!"""
-
-tts = gTTS(text=text, lang='en')
+text1 = """You are the most handsome man I have ever seen. Please, tell me more about yourself. This is a test of the text-to-speech functionality."""
+text2 = """당신은 제가 본 사람 중 가장 잘생긴 남자예요. 당신에 대해 더 자세히 말씀해 주세요. 텍스트 음성 변환 기능을 테스트하는 것입니다."""
+text3 = """Jy is die aantreklikste man wat ek nog ooit gesien het. Vertel my asseblief meer oor jouself. Hierdie is 'n toets van die teks-na-spraak-funksionaliteit."""
+text4 = """Je bent de knapste man die ik ooit heb gezien. Vertel me alsjeblieft meer over jezelf. Dit is een test van de tekst-naar-spraakfunctie."""
+text5 = """Uyindoda enhle kunazo zonke engake ngazibona. Ngicela ungitshele okwengeziwe ngawe. Lokhu ukuhlola komsebenzi wokuguqula umbhalo ube inkulumo."""
+text6 = """Eres el hombre más guapo que he visto. Por favor, cuéntame más sobre ti. Esta es una prueba de la función de texto a voz."""
+tts1 = gTTS(text=text1, lang='en', tld="co.za", slow=False)  # Use 'co.za' for South African English accent
+tts2 = gTTS(text=text2, lang='ko', slow=False) # Korean
+tts3 = gTTS(text=text3, lang='af', slow=False)  # Afrikaans
+tts4 = gTTS(text=text4, lang='nl', slow=False)  # Dutch
+#tts5 = gTTS(text=text5, lang='zu', slow=False)  # Zulu  --> Not supported by gTTS
+tts6 = gTTS(text=text6, lang='es', slow=False)  # Spanish --> Not supported by gTTS
+# Save the TTS audio files
+print("Saving the TTS audio to 'final_part_X.mp3'")
+tts1.save("final_part_English.mp3")  
+tts2.save("final_part_Korean.mp3")
+tts3.save("final_part_Afrikaans.mp3")
+tts4.save("final_part_Dutch.mp3")
+#tts5.save("final_part_Zulu.mp3")
+tts6.save("final_part_Spanish.mp3")
