@@ -1,0 +1,4 @@
+"""My name is Ivan and I am excited to have you as part of our learning community! 
+Before we get started, I’d like to tell you a little bit about myself. I’m a sound engineer turned data scientist,
+curious about machine learning and Artificial Intelligence. My professional background is primarily in media production,
+with a focus on audio, IT, and communications"""
