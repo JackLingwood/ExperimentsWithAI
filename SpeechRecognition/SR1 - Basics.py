@@ -32,6 +32,10 @@ pinecone_vector_database_key = os.environ.get("pinecone_vector_database_key")
 pinecone_environment = os.environ.get("pinecone_environment", "gcp-starter")
 # ---------------------------------------------------------------------------------------------
 
+
+
+
+
 import warnings
 warnings.filterwarnings("ignore", category=FutureWarning)
 from cryptography.utils import CryptographyDeprecationWarning
@@ -204,17 +208,15 @@ transcribed_text_whisper = result["text"]
 heading2("Whisper Transcription Result", transcribed_text_whisper)
 heading2("result['language']",result['language'])
 
-
 note("Transcription using Whisper ASR:")
 report_transcription_accuracy(ground_truth, transcribed_text_whisper)
 
-exit()
-
-directory_path = "../Recordings"
+directory_path = os.path.join(os.getcwd(), "Recordings")
 
 def transcribe_directory_whisper(directory_path):
     transcriptions = []
     for file_name in os.listdir(directory_path):
+        name("Processing file", file_name)
         if file_name.endswith(".wav"):
             files_path = os.path.join(directory_path, file_name)
             # Transcribe the audio file
@@ -223,9 +225,9 @@ def transcribe_directory_whisper(directory_path):
             transcriptions.append({"file_name": file_name, "transcription": transcription})
     return transcriptions
 
+heading2("Transcribing all audio files in directory", directory_path)
+
 transcriptions = transcribe_directory_whisper(directory_path)
-
-
 
 output_file = "transcriptions.csv"
 
