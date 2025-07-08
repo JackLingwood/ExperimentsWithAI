@@ -10,7 +10,7 @@ LLM/XLNET/test_trainer/checkpoint-39/rng_state.pth
 LLM/XLNET/test_trainer/checkpoint-39/optimizer.pt
 LLM/XLNET/test_trainer/checkpoint-39/model.safetensors
 LLM/XLNET/test_trainer/checkpoint-39/config.json
-LangChain/config.py
+LangChain/config.pysd
 LangChain/.env
 LangChain/__pycache__/config.cpython-312.pyc
 LangChain/LangChainExpressionLanguage/.env
@@ -22,3 +22,5 @@ LangChain/LangChainRetrievalAugmentedGeneration/intro-to-ds-lectures/63589da1-44
 LangChain/LangChainRetrievalAugmentedGeneration/intro-to-ds-lectures/63589da1-44c2-4e65-96cd-b2a9d02840b1/length.bin
 LangGraph/.env
 VectorDatabases/.env
+ChatBot/.streamlit/secrets.toml
+.streamlit/secrets.toml
