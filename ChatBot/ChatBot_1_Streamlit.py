@@ -33,16 +33,40 @@
 # pinecone_environment = os.environ.get("pinecone_environment", "gcp-starter")
 # # ---------------------------------------------------------------------------------------------
 
+# > streamlit run c:/Code/ExperimentsWithAI/ChatBot/ChatBot - 1 - Streamlit.py
+# https://localhost:8501
+# > streamlit hello
 
 import streamlit as st
-st.title("Streamlit Nested Buttons Example")
-# streamlit run c:/Code/ExperimentsWithAI/ChatBot/ChatBot - 1 - Streamlit.py
-# https://localhost:8501
+
+st.title("Basic Chatbot")
+st.title("_This is :blue[a title] :speech_balloon:")
+st.title("$E = mc^2$")
+
+st.header("This is a header")
+
+st.subheader("This is a subheader")
+
+st.write("This is a simple chatbot interface.")
+
+st.text("Type your message below and click 'Send' to interact with the chatbot.")
+st.text("This is plain text with no formatting.")
+
+st.markdown("This is **bold text** and *italic text* in Markdown format. \n This is a list item")
+
+st.write("You can also use Streamlit's built-in components to create interactive elements.")
+
+data = {
+    "Name": ["Alice", "Bob", "Charlie"],
+    "Age": [25, 30, 35],
+    "City": ["New York", "Los Angeles", "Chicago"]
+}
+
+st.write(data)
 
 
-exit()
 
-st.title("Nested Buttons Example")
+
 
 if 'show_second_button' not in st.session_state:
     st.session_state.show_second_button = False
